@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+>
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Employees</title>
+        <style>
+            #header {
+                width: 100%;
+            }
+
+            .btn-primary {
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content" layout:fragment="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <form method="get" action="" class="form-horizontal">
+                                <div class="card-header card-header-text" id="header">
+                                    <h4 class="card-title">Employees</h4>
+                                    <a th:href="@{employee_form}" id="create-btn" class="btn btn-primary">Create
+                                        Employee</a>
+                                </div>
+                                <div class="card-content">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                    <th class="text-right">Remuneration</th>
+                                                    <th class="text-right">Department</th>
+                                                    <th class="text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="employee : ${employees}">
+                                                    <td class="text-center">1</td>
+                                                    <td th:text="${employee.firstName}"></td>
+                                                    <td th:text="${employee.lastName}"></td>
+                                                    <td th:text="${employee.email}"></td>
+                                                    <td th:text="${employee.phoneNumber}"></td>
+                                                    <td th:text="${employee.remuneration.name}" class="text-right"></td>
+                                                    <td th:text="${employee.department.name}" class="text-right"></td>
+                                                    <td class="td-actions text-right">
+                                                        <button type="button" rel="tooltip"
+                                                                class="btn btn-danger btn-simple">
+                                                            <i class="material-icons" th:href="@{deleteEmployee(id=${employee.id})}">close</i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>

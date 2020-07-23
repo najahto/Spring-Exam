@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+>
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Employees</title>
+    </head>
+    <body>
+        <div class="content" layout:fragment="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <form th:action="@{/addEmployee}" method="post" class="form-horizontal" th:object="${employee}">
+                                <div class="card-header card-header-text">
+                                    <h4 class="card-title">Add Employee</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">First Name</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name">
+                                                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Last Name</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <input type="text" class="form-control" th:field="*{lastName}"  placeholder="Last Name">
+                                                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{firstName}" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Email</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <input type="email" class="form-control" th:field="*{email}" placeholder="Email">
+                                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{firstName}" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Phone Number</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <input type="text" class="form-control" placeholder="Phone Number">
+                                                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{firstName}" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Birthday</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <input type="date" th:field="*{birthday}" class="form-control datepicker" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Gender</label>
+                                        <div class="col-sm-10 checkbox-radios">
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" th:field="*{gender}" name="optionsRadios"> Male
+                                                </label>
+                                            </div>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" th:field="*{gender}" name="optionsRadios"> Female
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Remuneration Type</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <div class="col-lg-5 col-md-6 col-sm-3">
+                                                    <select class="form-control select" th:field="*{remuneration}">
+                                                        <option>Fixed</option>
+                                                        <option>Variable</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Employee Role</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <div class="col-lg-5 col-md-6 col-sm-3">
+                                                    <select class="selectpicker" data-style="btn btn-primary btn-round"
+                                                            title="Single Select" name="type" data-size="7">
+                                                        <option disabled selected>Choose Employee Role</option>
+                                                        <option value="ManagerEmployee">Manager</option>
+                                                        <option value="NormalEmployee">Normal</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Employee Department</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <div class="col-lg-5 col-md-6 col-sm-3">
+                                                    <select class="selectpicker"  data-style="btn btn-primary btn-round"
+                                                            th:field="*{department}">
+                                                        <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2 label-on-left">
+                                            <button class="btn btn-primary btn-round">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

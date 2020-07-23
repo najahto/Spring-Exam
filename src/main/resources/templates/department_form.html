@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+>
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Departments</title>
+    </head>
+    <body>
+        <div class="content" layout:fragment="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <form th:action="@{/addDepartment}" method="post" class="form-horizontal"
+                                  th:object="${department}">
+                                <div class="card-header card-header-text">
+                                    <h4 class="card-title">Add Department</h4>
+                                </div>
+                                <div class="card-content">
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Department Name</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <input type="text" class="form-control" th:field="*{name}"
+                                                       placeholder="Department Name">
+                                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label class="col-sm-2 label-on-left">Department Type</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-group label-floating is-empty">
+                                                <label class="control-label"></label>
+                                                <div class="col-lg-5 col-md-6 col-sm-3">
+                                                    <select class="selectpicker"
+                                                            data-style="btn btn-primary btn-round" th:field="*{type}">
+                                                        <option
+                                                                th:each="type : ${T(com.master.isi.springexam.entities.DepartmentType).values()}"
+                                                                th:value="${type}"
+                                                                th:text="${type}">
+                                                        </option>
+                                                    </select>
+                                                    <span th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2 label-on-left">
+                                            <button class="btn btn-primary btn-round">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>

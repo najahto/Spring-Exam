@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout"
+>
+    <head>
+        <meta charset="UTF-8">
+        <title>Departments</title>
+        <style>
+            .card-header-text{
+                width: 100%;
+            }
+            .btn-primary{
+                float: right;
+            }
+            .pagination-primary{
+                float: right;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content" layout:fragment="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <form method="get" action="" class="form-horizontal">
+                                <div class="card-header card-header-text">
+                                    <h4 class="card-title">Departments</h4>
+                                    <a th:href="@{department_form}" id="create-btn" class="btn btn-primary">Create Department</a>
+                                </div>
+                                <div class="card-content">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Department Name</th>
+                                                    <th>Type</th>
+                                                    <th class="text-right">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="department : ${departments}">
+                                                    <td class="text-center" th:text="${department.id}"></td>
+                                                    <td th:text="${department.name}"></td>
+                                                    <td th:text="${department.type}"></td>
+                                                    <td class="td-actions text-right">
+                                                        <a th:href="@{editDepartment(id=${department.id})}" rel="tooltip"
+                                                                class="btn btn-success btn-simple">
+                                                            <i class="material-icons">edit</i>
+                                                        </a>
+                                                        <a rel="tooltip" th:href="@{deleteDepartment(id=${department.id})}"
+                                                                class="btn btn-danger btn-simple">
+                                                            <i class="material-icons">close</i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <ul class="pagination pagination-primary">
+                                            <li th:each="page,status:${pages}">
+                                                <a th:class="${status.index==currentPage}?'btn btn-primary':'btn'"
+                                                   th:href="@{departments(page=${status.index})}" th:text="${status.index}"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>
